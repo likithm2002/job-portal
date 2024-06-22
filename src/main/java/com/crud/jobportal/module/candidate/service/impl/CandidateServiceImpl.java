@@ -107,9 +107,9 @@ public class CandidateServiceImpl implements CandidateService {
                 .cityName(candidateResponse.getCityName())
                 .createdAt(candidateResponse.getCreatedAt())
                 .build();
-        CandidateDto deletedCandidateDto = candidateDao.deletedCandidate(candidateDto);
+        CandidateDto deleteCandidateDto = candidateDao.deleteCandidate(candidateDto);
 
-        return deletedCandidateDto.getId();
+        return deleteCandidateDto.getId();
     }
 }
 

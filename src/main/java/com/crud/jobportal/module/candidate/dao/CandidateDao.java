@@ -10,5 +10,5 @@ public interface CandidateDao {
 
     CandidateDto updateCandidate(CandidateDto candidateDto);
 
-    CandidateDto deletedCandidate(CandidateDto candidateDto);
+    CandidateDto deleteCandidate(CandidateDto candidateDto);
 }
