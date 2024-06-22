@@ -120,6 +120,7 @@ public class CandidateDaoImpl implements CandidateDao {
                 .createdAt(candidate.getCreatedAt())
                 .cityName(candidate.getCityName())
                 .build();
+        // Dummy comment
         return responseCandidateDto;
     }
 }
