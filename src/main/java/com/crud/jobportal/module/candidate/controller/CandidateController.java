@@ -17,7 +17,7 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping
-    public ResponseEntity<CandidateResponse> createCandidate(@RequestBody CreateCandidateRequest createCandidateRequest) {
+    public ResponseEntity<CandidateResponse> createCandidate(@RequestBody CreateCandidateRequest createCandidateRequest) throws BadRequestException {
         CandidateResponse candidateResponse = candidateService.createCandidate(createCandidateRequest);
             return ResponseEntity.ok().body(candidateResponse);
     }
