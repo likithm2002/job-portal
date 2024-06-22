@@ -1,11 +1,15 @@
 package com.crud.jobportal.module.candidate.dao.impl;
 
+import com.crud.jobportal.module.admin.dao.AdminDao;
+import com.crud.jobportal.module.admin.dto.AdminDto;
+import com.crud.jobportal.module.admin.entity.Admin;
 import com.crud.jobportal.module.candidate.dao.CandidateDao;
 import com.crud.jobportal.module.candidate.dto.CandidateDto;
 import com.crud.jobportal.module.candidate.entity.Candidate;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +22,22 @@ public class CandidateDaoImpl implements CandidateDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    private AdminDao adminDao;
+
     @Override
     @Transactional
-    public CandidateDto createCandidate(CandidateDto candidateDto) {
+    public CandidateDto createCandidate(CandidateDto candidateDto) throws BadRequestException {
+
+        AdminDto adminDto = adminDao.getAdminById(candidateDto.getAdminId());
+        Admin admin = Admin.builder()
+                .id(adminDto.getId())
+                .name(adminDto.getName())
+                .email(adminDto.getEmail())
+                .phoneNumber(adminDto.getPhoneNumber())
+                .createdAt(adminDto.getCreatedAt())
+                .build();
+
         Candidate candidate = Candidate.builder()
                 .id(candidateDto.getId())
                 .name(candidateDto.getName())
@@ -30,6 +47,7 @@ public class CandidateDaoImpl implements CandidateDao {
                 .cityName(candidateDto.getCityName())
                 .gender(candidateDto.getGender())
                 .createdAt(candidateDto.getCreatedAt())
+                .admin(admin)
                 .build();
         entityManager.persist(candidate);
 
@@ -42,6 +60,7 @@ public class CandidateDaoImpl implements CandidateDao {
                 .phoneNumber(candidate.getPhoneNumber())
                 .createdAt(candidateDto.getCreatedAt())
                 .cityName(candidate.getCityName())
+                .adminId(candidate.getAdmin().getId())
                 .build();
 
         return responseCandidateDto;

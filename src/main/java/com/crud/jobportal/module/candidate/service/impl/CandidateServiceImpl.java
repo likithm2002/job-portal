@@ -21,7 +21,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     @Transactional
-    public CandidateResponse createCandidate(CreateCandidateRequest createCandidateRequest) {
+    public CandidateResponse createCandidate(CreateCandidateRequest createCandidateRequest) throws BadRequestException {
         CandidateDto candidateDto = CandidateDto.builder()
                 .name(createCandidateRequest.getName())
                 .age(createCandidateRequest.getAge())
@@ -30,6 +30,7 @@ public class CandidateServiceImpl implements CandidateService {
                 .phoneNumber(createCandidateRequest.getPhoneNumber())
                 .cityName(createCandidateRequest.getCityName())
                 .createdAt(new Date())
+                .adminId(createCandidateRequest.getAdminId())
                 .build();
 
         CandidateDto responseCandidateDto = candidateDao.createCandidate(candidateDto);
