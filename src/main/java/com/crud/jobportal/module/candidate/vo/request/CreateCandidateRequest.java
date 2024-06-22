@@ -10,4 +10,5 @@ public class CreateCandidateRequest {
     private String email;
     private String phoneNumber;
     private String cityName;
+    private Long adminId;
 }

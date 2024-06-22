@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @Builder
 public class CandidateDto {
-
     private Long id;
     private String name;
     private Integer age;
@@ -17,4 +16,5 @@ public class CandidateDto {
     private String phoneNumber;
     private String cityName;
     private Date createdAt;
+    private Long adminId;
 }
