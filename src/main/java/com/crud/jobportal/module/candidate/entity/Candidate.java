@@ -1,5 +1,6 @@
 package com.crud.jobportal.module.candidate.entity;
 
+import com.crud.jobportal.module.admin.entity.Admin;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +26,8 @@ public class Candidate {
     private String phoneNumber;
     private String cityName;
     private Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 }
