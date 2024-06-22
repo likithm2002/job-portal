@@ -97,7 +97,7 @@ public class CandidateDaoImpl implements CandidateDao {
     }
 
     @Override
-    public CandidateDto deletedCandidate(CandidateDto candidateDto) {
+    public CandidateDto deleteCandidate(CandidateDto candidateDto) {
         Candidate candidate = Candidate.builder()
                 .id(candidateDto.getId())
                 .name(candidateDto.getName())
@@ -120,6 +120,7 @@ public class CandidateDaoImpl implements CandidateDao {
                 .createdAt(candidate.getCreatedAt())
                 .cityName(candidate.getCityName())
                 .build();
+        // Dummy comment
         return responseCandidateDto;
     }
 }
