@@ -4,7 +4,6 @@ import com.crud.jobportal.module.candidate.vo.request.CreateCandidateRequest;
 import com.crud.jobportal.module.candidate.vo.request.UpdateCandidateRequest;
 import com.crud.jobportal.module.candidate.vo.response.CandidateResponse;
 import org.apache.coyote.BadRequestException;
-import org.springframework.stereotype.Service;
 
 
 public interface CandidateService {
