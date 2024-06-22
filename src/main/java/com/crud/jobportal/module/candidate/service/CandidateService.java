@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface CandidateService {
-    CandidateResponse createCandidate(CreateCandidateRequest createCandidateRequest);
+    CandidateResponse createCandidate(CreateCandidateRequest createCandidateRequest) throws BadRequestException;
 
     CandidateResponse getCandidateById(Long id) throws BadRequestException;
 
