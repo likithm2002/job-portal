@@ -73,7 +73,7 @@ public class CandidateDaoImpl implements CandidateDao {
     }
 
     @Override
-    public CandidateDto getAdminById(Long id) throws BadRequestException {
+    public CandidateDto getCandidateById(Long id) throws BadRequestException {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
 
         // SELECT * FROM candidates WHERE id = :id;

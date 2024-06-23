@@ -53,7 +53,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateResponse getCandidateById(Long id) throws BadRequestException {
-        CandidateDto candidateDto = candidateDao.getAdminById(id);
+        CandidateDto candidateDto = candidateDao.getCandidateById(id);
         CandidateResponse candidateResponse = CandidateResponse.builder()
                 .id(candidateDto.getId())
                 .name(candidateDto.getName())
