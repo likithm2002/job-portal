@@ -1,13 +1,16 @@
 package com.crud.jobportal.module.candidate.entity;
 
 import com.crud.jobportal.module.admin.entity.Admin;
+import com.crud.jobportal.module.jobapplication.entity.JobApplication;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,4 +33,7 @@ public class Candidate {
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
+
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    private List<JobApplication> jobApplicationList = new ArrayList<>();
 }
