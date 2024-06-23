@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -111,6 +113,27 @@ public class CandidateServiceImpl implements CandidateService {
         CandidateDto deleteCandidateDto = candidateDao.deleteCandidate(candidateDto);
 
         return deleteCandidateDto.getId();
+    }
+
+    @Override
+    public List<CandidateResponse> getCandidates() {
+        List<CandidateDto> candidateDtoList = candidateDao.getCandidates();
+        List<CandidateResponse> candidateResponseList = new ArrayList<>();
+
+        for (CandidateDto  candidateDto : candidateDtoList) {
+            CandidateResponse candidateResponse = CandidateResponse.builder()
+                    .id(candidateDto.getId())
+                    .name(candidateDto.getName())
+                    .age(candidateDto.getAge())
+                    .email(candidateDto.getEmail())
+                    .gender(candidateDto.getGender())
+                    .phoneNumber(candidateDto.getPhoneNumber())
+                    .cityName(candidateDto.getCityName())
+                    .createdAt(new Date())
+                    .build();
+            candidateResponseList.add(candidateResponse);
+         }
+        return candidateResponseList;
     }
 }
 

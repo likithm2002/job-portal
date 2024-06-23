@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("v1/candidates")
 public class CandidateController {
@@ -40,5 +42,10 @@ public class CandidateController {
         return ResponseEntity.ok().body(deletedId);
     }
 
+    @GetMapping
+    public ResponseEntity<List<CandidateResponse>> getCandidates() {
+        List<CandidateResponse> candidateResponseList = candidateService.getCandidates();
+        return ResponseEntity.ok().body(candidateResponseList);
+    }
 }
 
