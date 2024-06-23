@@ -8,7 +8,7 @@ import org.apache.coyote.BadRequestException;
 import java.util.List;
 
 public interface RecruiterService {
-    RecruiterResponse createRecruiter(CreateRecruiterRequest createRecruiterRequest);
+    RecruiterResponse createRecruiter(CreateRecruiterRequest createRecruiterRequest) throws BadRequestException;
 
     RecruiterResponse getRecruiterById(Long id) throws BadRequestException;
 

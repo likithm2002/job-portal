@@ -1,5 +1,8 @@
 package com.crud.jobportal.module.recruiter.dao.impl;
 
+import com.crud.jobportal.module.admin.dao.AdminDao;
+import com.crud.jobportal.module.admin.dto.AdminDto;
+import com.crud.jobportal.module.admin.entity.Admin;
 import com.crud.jobportal.module.recruiter.dao.RecruiterDao;
 import com.crud.jobportal.module.recruiter.dto.RecruiterDto;
 import com.crud.jobportal.module.recruiter.entity.QRecruiter;
@@ -8,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +28,21 @@ public class RecruiterDaoImpl implements RecruiterDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    private AdminDao adminDao;
+
     @Override
     @Transactional
-    public RecruiterDto createRecruiter(RecruiterDto recruiterDto) {
+    public RecruiterDto createRecruiter(RecruiterDto recruiterDto) throws BadRequestException {
+        AdminDto adminDto = adminDao.getAdminById(recruiterDto.getAdminId());
+        Admin admin = Admin.builder()
+                .id(adminDto.getId())
+                .name(adminDto.getName())
+                .email(adminDto.getEmail())
+                .phoneNumber(adminDto.getPhoneNumber())
+                .createdAt(adminDto.getCreatedAt())
+                .build();
+
         Recruiter recruiter = Recruiter.builder()
                 .id(recruiterDto.getId())
                 .name(recruiterDto.getName())
@@ -34,6 +50,7 @@ public class RecruiterDaoImpl implements RecruiterDao {
                 .companyName(recruiterDto.getCompanyName())
                 .phoneNumber(recruiterDto.getPhoneNumber())
                 .createdAt(new Date())
+                .admin(admin)
                 .build();
 
         entityManager.persist(recruiter);
@@ -45,6 +62,7 @@ public class RecruiterDaoImpl implements RecruiterDao {
                 .companyName(recruiter.getCompanyName())
                 .phoneNumber(recruiter.getPhoneNumber())
                 .createdAt(new Date())
+                .adminId(recruiter.getAdmin().getId())
                 .build();
         return responseRecruiterDto;
     }

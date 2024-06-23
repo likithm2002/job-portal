@@ -19,7 +19,7 @@ public class RecruiterController {
     private RecruiterService recruiterService;
 
     @PostMapping
-    public ResponseEntity<RecruiterResponse> createRecruiter(@RequestBody CreateRecruiterRequest createRecruiterRequest) {
+    public ResponseEntity<RecruiterResponse> createRecruiter(@RequestBody CreateRecruiterRequest createRecruiterRequest) throws BadRequestException {
         RecruiterResponse recruiterResponse = recruiterService.createRecruiter(createRecruiterRequest);
         return ResponseEntity.ok().body(recruiterResponse);
     }

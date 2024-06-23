@@ -6,7 +6,7 @@ import org.apache.coyote.BadRequestException;
 import java.util.List;
 
 public interface RecruiterDao {
-    RecruiterDto createRecruiter(RecruiterDto recruiterDto);
+    RecruiterDto createRecruiter(RecruiterDto recruiterDto) throws BadRequestException;
 
     RecruiterDto getRecruiterById(Long id) throws BadRequestException;
 
