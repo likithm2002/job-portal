@@ -1,6 +1,7 @@
 package com.crud.jobportal.module.admin.entity;
 
 import com.crud.jobportal.module.candidate.entity.Candidate;
+import com.crud.jobportal.module.recruiter.entity.Recruiter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,5 +29,8 @@ public class Admin {
     private Date createdAt;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Candidate> candidateList = new ArrayList<>();;
+    private List<Candidate> candidateList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private List<Recruiter> recruiterList = new ArrayList<>();
 }

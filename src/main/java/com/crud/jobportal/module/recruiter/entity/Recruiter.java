@@ -1,5 +1,6 @@
 package com.crud.jobportal.module.recruiter.entity;
 
+import com.crud.jobportal.module.admin.entity.Admin;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,8 @@ public class Recruiter {
     private String companyName;
     private String phoneNumber;
     private Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 }

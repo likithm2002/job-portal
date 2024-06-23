@@ -14,4 +14,5 @@ public class RecruiterDto {
     private String companyName;
     private String phoneNumber;
     private Date createdAt;
+    private Long adminId;
 }

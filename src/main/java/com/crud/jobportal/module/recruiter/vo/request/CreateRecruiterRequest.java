@@ -12,4 +12,5 @@ public class CreateRecruiterRequest {
     private String companyName;
     private String phoneNumber;
     private Date createdAt;
+    private Long adminId;
 }
