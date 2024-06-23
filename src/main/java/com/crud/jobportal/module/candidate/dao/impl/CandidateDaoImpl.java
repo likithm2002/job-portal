@@ -6,6 +6,8 @@ import com.crud.jobportal.module.admin.entity.Admin;
 import com.crud.jobportal.module.candidate.dao.CandidateDao;
 import com.crud.jobportal.module.candidate.dto.CandidateDto;
 import com.crud.jobportal.module.candidate.entity.Candidate;
+import com.crud.jobportal.module.candidate.entity.QCandidate;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.apache.coyote.BadRequestException;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -21,6 +25,8 @@ public class CandidateDaoImpl implements CandidateDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    QCandidate qCandidate = QCandidate.candidate;
 
     @Autowired
     private AdminDao adminDao;
@@ -68,7 +74,14 @@ public class CandidateDaoImpl implements CandidateDao {
 
     @Override
     public CandidateDto getAdminById(Long id) throws BadRequestException {
-        Candidate candidate = entityManager.find(Candidate.class, id);
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+
+        // SELECT * FROM candidates WHERE id = :id;
+        Candidate candidate = queryFactory.selectFrom(qCandidate)
+                .where(qCandidate.id.eq(id))
+                .fetchOne();
+
+//        Candidate candidate = entityManager.find(Candidate.class, id);
         if (Objects.isNull(candidate)) {
             throw new BadRequestException();
         }
@@ -141,5 +154,27 @@ public class CandidateDaoImpl implements CandidateDao {
                 .build();
         // Dummy comment
         return responseCandidateDto;
+    }
+
+    @Override
+    public List<CandidateDto> getCandidates() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        List<Candidate> candidateList = queryFactory.selectFrom(qCandidate)
+                .fetch();
+        List<CandidateDto> candidateDtoList = new ArrayList<>();
+         for (Candidate candidate : candidateList) {
+             CandidateDto candidateDto = CandidateDto.builder()
+                     .id(candidate.getId())
+                     .name(candidate.getName())
+                     .age(candidate.getAge())
+                     .email(candidate.getEmail())
+                     .gender(candidate.getGender())
+                     .phoneNumber(candidate.getPhoneNumber())
+                     .cityName(candidate.getCityName())
+                     .createdAt(candidate.getCreatedAt())
+                     .build();
+             candidateDtoList.add(candidateDto);
+         }
+        return candidateDtoList;
     }
 }
