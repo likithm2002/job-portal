@@ -23,7 +23,7 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Override
     @Transactional
-    public RecruiterResponse createRecruiter(CreateRecruiterRequest createRecruiterRequest) {
+    public RecruiterResponse createRecruiter(CreateRecruiterRequest createRecruiterRequest) throws BadRequestException {
         RecruiterDto recruiterDto = RecruiterDto.builder()
                 .id(createRecruiterRequest.getId())
                 .name(createRecruiterRequest.getName())
@@ -31,6 +31,7 @@ public class RecruiterServiceImpl implements RecruiterService {
                 .companyName(createRecruiterRequest.getCompanyName())
                 .phoneNumber(createRecruiterRequest.getPhoneNumber())
                 .createdAt(new Date())
+                .adminId(createRecruiterRequest.getAdminId())
                 .build();
         RecruiterDto responseRecruiterDto = recruiterDao.createRecruiter(recruiterDto);
 
