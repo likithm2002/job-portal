@@ -8,8 +8,10 @@ import com.crud.jobportal.module.candidateprofile.vo.request.UpdateCandidateProf
 import com.crud.jobportal.module.candidateprofile.vo.response.CandidateProfileResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class CandidateProfileServiceImpl implements CandidateProfileService {
 
     @Autowired

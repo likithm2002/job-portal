@@ -6,7 +6,7 @@ import com.crud.jobportal.module.candidateprofile.vo.response.CandidateProfileRe
 import org.apache.coyote.BadRequestException;
 
 public interface CandidateProfileService {
-    CandidateProfileResponse createCandidateProfile(CreateCandidateProfileRequest createCandidateProfilRequest);
+    CandidateProfileResponse createCandidateProfile(CreateCandidateProfileRequest createCandidateProfileRequest);
 
     CandidateProfileResponse getCandidateProfileById(Long id) throws BadRequestException;
 

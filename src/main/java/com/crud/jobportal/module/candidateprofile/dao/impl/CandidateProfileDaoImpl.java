@@ -7,11 +7,13 @@ import com.crud.jobportal.module.candidateprofile.vo.response.CandidateProfileRe
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.apache.coyote.BadRequestException;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Objects;
 
+@Repository
 public class CandidateProfileDaoImpl implements CandidateProfileDao {
 
     @PersistenceContext

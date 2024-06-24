@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("v1/candidateprofiles")
+@RequestMapping("v1/candidate_profiles")
 public class CandidateProfileController {
 
     @Autowired
@@ -19,9 +19,9 @@ public class CandidateProfileController {
 
     @PostMapping
     public ResponseEntity<CandidateProfileResponse> createCandidateProfile
-            (@RequestBody CreateCandidateProfileRequest createCandidateProfilRequest) {
+            (@RequestBody CreateCandidateProfileRequest createCandidateProfileRequest) {
         CandidateProfileResponse candidateProfileResponse =
-                candidateProfileService.createCandidateProfile(createCandidateProfilRequest);
+                candidateProfileService.createCandidateProfile(createCandidateProfileRequest);
         return ResponseEntity.ok().body(candidateProfileResponse);
     }
 
@@ -40,7 +40,7 @@ public class CandidateProfileController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCandidateProfile(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteCandidateProfile(@PathVariable Long id) throws BadRequestException {
         Long deletedId = candidateProfileService.deleteCandidateProfile(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
