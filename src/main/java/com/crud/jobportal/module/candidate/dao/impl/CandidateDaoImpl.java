@@ -76,7 +76,6 @@ public class CandidateDaoImpl implements CandidateDao {
     public CandidateDto getCandidateById(Long id) throws BadRequestException {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
 
-        // SELECT * FROM candidates WHERE id = :id;
         Candidate candidate = queryFactory.selectFrom(qCandidate)
                 .where(qCandidate.id.eq(id))
                 .fetchOne();
@@ -177,4 +176,27 @@ public class CandidateDaoImpl implements CandidateDao {
          }
         return candidateDtoList;
     }
+
+    @Override
+    public List<CandidateDto> getAllCandidates() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        List<Candidate> candidateList = queryFactory.selectFrom(qCandidate)
+                .fetch();
+        List<CandidateDto> candidateDtoList = new ArrayList<>();
+        for (Candidate candidate : candidateList) {
+            CandidateDto candidateDto = CandidateDto.builder()
+                    .id(candidate.getId())
+                    .name(candidate.getName())
+                    .age(candidate.getAge())
+                    .email(candidate.getEmail())
+                    .gender(candidate.getGender())
+                    .phoneNumber(candidate.getPhoneNumber())
+                    .cityName(candidate.getCityName())
+                    .createdAt(candidate.getCreatedAt())
+                    .build();
+            candidateDtoList.add(candidateDto);
+        }
+        return candidateDtoList;
+    }
+
 }

@@ -15,4 +15,8 @@ public interface CandidateDao {
     CandidateDto deleteCandidate(CandidateDto candidateDto);
 
     List<CandidateDto> getCandidates();
+
+    List<CandidateDto> getAllCandidates();
+
+    ;
 }
