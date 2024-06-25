@@ -1,8 +1,12 @@
 package com.crud.jobportal.module.recruiter.service.impl;
 
+import com.crud.jobportal.module.candidate.dao.CandidateSkillDao;
+import com.crud.jobportal.module.candidate.dto.CandidateSkillDto;
+import com.crud.jobportal.module.candidate.vo.response.CandidateSkillResponse;
 import com.crud.jobportal.module.recruiter.dao.RecruiterDao;
 import com.crud.jobportal.module.recruiter.dto.RecruiterDto;
 import com.crud.jobportal.module.recruiter.service.RecruiterService;
+import com.crud.jobportal.module.recruiter.vo.request.CandidateShortlistRequest;
 import com.crud.jobportal.module.recruiter.vo.request.CreateRecruiterRequest;
 import com.crud.jobportal.module.recruiter.vo.request.UpdateRecruiterRequest;
 import com.crud.jobportal.module.recruiter.vo.response.RecruiterResponse;
@@ -20,6 +24,9 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Autowired
     private RecruiterDao recruiterDao;
+
+    @Autowired
+    private CandidateSkillDao candidateSkillDao;
 
     @Override
     @Transactional
@@ -118,5 +125,25 @@ public class RecruiterServiceImpl implements RecruiterService {
             recruiterResponseList.add(recruiterResponse);
         }
         return recruiterResponseList;
+    }
+
+
+    @Override
+    public List<CandidateSkillResponse> getShortlistedCandidates(CandidateShortlistRequest candidateShortlistRequest) {
+        List<CandidateSkillDto> candidateSkillDtoList = candidateSkillDao.getShortlistedCandidates(candidateShortlistRequest);
+        List<CandidateSkillResponse> candidateSkillResponseList = new ArrayList<>();
+
+        for (CandidateSkillDto candidateSkillDto : candidateSkillDtoList) {
+            CandidateSkillResponse candidateSkillResponse = CandidateSkillResponse.builder()
+                    .id(candidateSkillDto.getId())
+                    .skill(candidateSkillDto.getSkill())
+                    .yoe(candidateSkillDto.getYoe())
+                    .candidateId(candidateSkillDto.getCandidateId())
+                    .createdAt(candidateSkillDto.getCreatedAt())
+                    .createdBy(candidateSkillDto.getCreatedBy())
+                    .build();
+            candidateSkillResponseList.add(candidateSkillResponse);
+        }
+        return candidateSkillResponseList;
     }
 }
