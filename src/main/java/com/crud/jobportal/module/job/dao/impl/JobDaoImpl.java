@@ -11,7 +11,9 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Repository
@@ -113,5 +115,23 @@ public class JobDaoImpl implements JobDao {
                 .createdAt(new Date())
                 .build();
         return responseJobDto;
+    }
+
+    @Override
+    public List<JobDto> getAllJobs() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        List<Job> jobList = queryFactory.selectFrom(qJob).fetch();
+        List<JobDto> jobDtoList = new ArrayList<>();
+        for (Job job : jobList) {
+            JobDto jobDto = JobDto.builder()
+                    .id(job.getId())
+                    .name(job.getName())
+                    .industry(job.getIndustry())
+                    .salary(job.getSalary())
+                    .createdAt(new Date())
+                    .build();
+            jobDtoList.add(jobDto);
+        }
+        return jobDtoList;
     }
 }
