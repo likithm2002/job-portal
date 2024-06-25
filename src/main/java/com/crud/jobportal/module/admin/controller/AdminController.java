@@ -4,6 +4,7 @@ import com.crud.jobportal.module.admin.service.AdminService;
 import com.crud.jobportal.module.admin.vo.request.CreateAdminRequest;
 import com.crud.jobportal.module.admin.vo.request.UpdateAdminRequest;
 import com.crud.jobportal.module.admin.vo.response.AdminResponse;
+import com.crud.jobportal.module.candidate.vo.response.CandidateResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,12 @@ public class AdminController {
     public ResponseEntity<List<AdminResponse>> getAdmins() {
         List<AdminResponse> adminResponseList = adminService.getAdmins();
         return ResponseEntity.ok().body(adminResponseList);
+    }
+
+    @GetMapping("candidates")
+    public ResponseEntity<List<CandidateResponse>> getAllCandidates() {
+        List<CandidateResponse> candidateResponseList = adminService.getAllCandidates();
+        return ResponseEntity.ok().body(candidateResponseList);
     }
 }
 

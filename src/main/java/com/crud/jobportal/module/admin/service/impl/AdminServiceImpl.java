@@ -6,6 +6,9 @@ import com.crud.jobportal.module.admin.service.AdminService;
 import com.crud.jobportal.module.admin.vo.request.CreateAdminRequest;
 import com.crud.jobportal.module.admin.vo.request.UpdateAdminRequest;
 import com.crud.jobportal.module.admin.vo.response.AdminResponse;
+import com.crud.jobportal.module.candidate.dao.CandidateDao;
+import com.crud.jobportal.module.candidate.dto.CandidateDto;
+import com.crud.jobportal.module.candidate.vo.response.CandidateResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
+
+    @Autowired
+    private CandidateDao candidateDao;
 
 
     @Override
@@ -114,5 +120,26 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return adminResponseList;
+    }
+
+    @Override
+    public List<CandidateResponse> getAllCandidates() {
+        List<CandidateDto> candidateDtoList = candidateDao.getAllCandidates();
+        List<CandidateResponse> candidateResponseList = new ArrayList<>();
+
+        for (CandidateDto candidateDto : candidateDtoList) {
+            CandidateResponse candidateResponse = CandidateResponse.builder()
+                    .id(candidateDto.getId())
+                    .name(candidateDto.getName())
+                    .email(candidateDto.getEmail())
+                    .age(candidateDto.getAge())
+                    .gender(candidateDto.getGender())
+                    .phoneNumber(candidateDto.getPhoneNumber())
+                    .cityName(candidateDto.getCityName())
+                    .createdAt(candidateDto.getCreatedAt())
+                    .build();
+            candidateResponseList.add(candidateResponse);
+        }
+        return candidateResponseList;
     }
 }
