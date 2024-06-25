@@ -5,6 +5,8 @@ import com.crud.jobportal.module.job.vo.request.UpdateJobRequest;
 import com.crud.jobportal.module.job.vo.response.JobResponse;
 import org.apache.coyote.BadRequestException;
 
+import java.util.List;
+
 public interface JobService {
     JobResponse createJob(CreateJobRequest createJobRequest);
 
@@ -13,4 +15,5 @@ public interface JobService {
     JobResponse updateJob(UpdateJobRequest updateJobRequest);
 
     Long deleteJob(Long id) throws BadRequestException;
+
 }

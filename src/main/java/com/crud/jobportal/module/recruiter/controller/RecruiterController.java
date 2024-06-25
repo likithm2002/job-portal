@@ -1,6 +1,8 @@
 package com.crud.jobportal.module.recruiter.controller;
 
+import com.crud.jobportal.module.candidate.vo.response.CandidateSkillResponse;
 import com.crud.jobportal.module.recruiter.service.RecruiterService;
+import com.crud.jobportal.module.recruiter.vo.request.CandidateShortlistRequest;
 import com.crud.jobportal.module.recruiter.vo.request.CreateRecruiterRequest;
 import com.crud.jobportal.module.recruiter.vo.request.UpdateRecruiterRequest;
 import com.crud.jobportal.module.recruiter.vo.response.RecruiterResponse;
@@ -47,5 +49,16 @@ public class RecruiterController {
         return ResponseEntity.ok().body(recruiterResponseList);
     }
 
+    @GetMapping("/shortlist")
+    public ResponseEntity<List<CandidateSkillResponse>> getShortlistedCandidates(
+            @RequestParam String skill, @RequestParam Integer minimumYearsOfExperience) throws BadRequestException {
+        CandidateShortlistRequest candidateShortlistRequest = CandidateShortlistRequest.builder()
+                .skill(skill)
+                .minimumYearsOfExperience(minimumYearsOfExperience)
+                .build();
+        List<CandidateSkillResponse> candidateSkillResponseList
+                = recruiterService.getShortlistedCandidates(candidateShortlistRequest);
+        return ResponseEntity.ok().body(candidateSkillResponseList);
+    }
 
 }
