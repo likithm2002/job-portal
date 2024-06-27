@@ -1,16 +1,14 @@
 package com.crud.jobportal.module.jobapplication.dao.impl;
 
 
-import ch.qos.logback.core.status.Status;
 import com.crud.jobportal.module.jobapplication.dao.JobApplicationDao;
 import com.crud.jobportal.module.jobapplication.dto.JobApplicationDto;
 import com.crud.jobportal.module.jobapplication.entity.JobApplication;
+import com.crud.jobportal.module.jobapplication.enums.JobApplicationStatus;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 @Repository
 public class JobApplicationDaoImpl implements JobApplicationDao {
@@ -21,12 +19,15 @@ public class JobApplicationDaoImpl implements JobApplicationDao {
     @Override
     @Transactional
     public JobApplicationDto createJobApplication(JobApplicationDto jobApplicationDto) {
+
+        JobApplicationStatus status = JobApplicationStatus.fromOrdinal(jobApplicationDto.getStatus().getOrdinalValue());
+
         JobApplication jobApplication = JobApplication.builder()
                 .id(jobApplicationDto.getId())
                 .candidate(jobApplicationDto.getCandidate())
                 .job(jobApplicationDto.getJob())
                 .createdAt(jobApplicationDto.getCreatedAt())
-                .status(jobApplicationDto.getStatus())
+                .status(status)
                 .build();
         entityManager.persist(jobApplication);
 
@@ -35,7 +36,7 @@ public class JobApplicationDaoImpl implements JobApplicationDao {
                 .candidate(jobApplication.getCandidate())
                 .job(jobApplication.getJob())
                 .createdAt(jobApplication.getCreatedAt())
-                .status(jobApplication.getStatus())
+                .status(JobApplicationStatus.fromOrdinal(jobApplication.getStatus().getOrdinalValue()))
                 .build();
         return responseJobApplicationDto;
     }

@@ -33,6 +33,7 @@ public class JobApplication {
 
     private Date createdAt;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private JobApplicationStatus status;
+
 }
