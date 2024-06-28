@@ -146,4 +146,9 @@ public class RecruiterServiceImpl implements RecruiterService {
         }
         return candidateSkillResponseList;
     }
+
 }
+
+
+
+

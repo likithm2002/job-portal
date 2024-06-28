@@ -3,10 +3,15 @@ package com.crud.jobportal.module.recruiter.dao.impl;
 import com.crud.jobportal.module.admin.dao.AdminDao;
 import com.crud.jobportal.module.admin.dto.AdminDto;
 import com.crud.jobportal.module.admin.entity.Admin;
+import com.crud.jobportal.module.candidate.dto.CandidateDto;
+import com.crud.jobportal.module.candidate.entity.Candidate;
+import com.crud.jobportal.module.candidate.entity.CandidateSkill;
+import com.crud.jobportal.module.candidate.entity.QCandidateSkill;
 import com.crud.jobportal.module.recruiter.dao.RecruiterDao;
 import com.crud.jobportal.module.recruiter.dto.RecruiterDto;
 import com.crud.jobportal.module.recruiter.entity.QRecruiter;
 import com.crud.jobportal.module.recruiter.entity.Recruiter;
+import com.crud.jobportal.module.recruiter.vo.request.CandidateShortlistRequest;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -24,6 +29,7 @@ import java.util.Objects;
 public class RecruiterDaoImpl implements RecruiterDao {
 
     QRecruiter qRecruiter = QRecruiter.recruiter;
+    QCandidateSkill qCandidateSkill = QCandidateSkill.candidateSkill;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -155,4 +161,6 @@ public class RecruiterDaoImpl implements RecruiterDao {
         }
         return recruiterDtoList;
     }
+
+
 }
