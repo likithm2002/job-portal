@@ -1,5 +1,6 @@
 package com.crud.jobportal.module.recruiter.service;
 
+import com.crud.jobportal.module.candidate.vo.response.CandidateResponse;
 import com.crud.jobportal.module.candidate.vo.response.CandidateSkillResponse;
 import com.crud.jobportal.module.recruiter.vo.request.CandidateShortlistRequest;
 import com.crud.jobportal.module.recruiter.vo.request.CreateRecruiterRequest;
@@ -22,4 +23,5 @@ public interface RecruiterService {
 
     List<CandidateSkillResponse> getShortlistedCandidates(CandidateShortlistRequest candidateShortlistRequest)
             throws BadRequestException;
+
 }

@@ -1,5 +1,7 @@
 package com.crud.jobportal.module.recruiter.controller;
 
+import com.crud.jobportal.module.candidate.entity.Candidate;
+import com.crud.jobportal.module.candidate.service.CandidateService;
 import com.crud.jobportal.module.candidate.vo.response.CandidateSkillResponse;
 import com.crud.jobportal.module.recruiter.service.RecruiterService;
 import com.crud.jobportal.module.recruiter.vo.request.CandidateShortlistRequest;
@@ -19,6 +21,9 @@ public class RecruiterController {
 
     @Autowired
     private RecruiterService recruiterService;
+
+    @Autowired
+    private CandidateService candidateService;
 
     @PostMapping
     public ResponseEntity<RecruiterResponse> createRecruiter(@RequestBody CreateRecruiterRequest createRecruiterRequest) throws BadRequestException {
